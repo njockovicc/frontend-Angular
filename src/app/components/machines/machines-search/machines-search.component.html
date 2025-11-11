@@ -1,0 +1,116 @@
+<div *ngIf="noPermission" class="alert alert-danger mt-4 container">
+  Nemaš dozvolu da vidiš mašine.
+</div>
+<div class="container mt-4" *ngIf="!noPermission">
+  <div class="d-flex justify-content-between align-items-center mb-3">
+    <h2 class="mb-0">Pretraga mašina</h2>
+    <a routerLink="/machines/new" class="btn btn-success">+ Nova mašina</a>
+  </div>
+
+  <!-- filter forma -->
+  <div class="card mb-4">
+    <div class="card-body">
+      <form class="row g-3">
+        <div class="col-md-3">
+          <label class="form-label">Naziv</label>
+          <input
+            type="text"
+            class="form-control"
+            [(ngModel)]="name"
+            name="name"
+            placeholder="npr. App Server"
+          />
+        </div>
+
+        <div class="col-md-3">
+          <label class="form-label d-block">Stanje</label>
+          <div class="form-check" *ngFor="let s of allStates">
+            <input
+              class="form-check-input"
+              type="checkbox"
+              [checked]="selectedStates.includes(s)"
+              (change)="toggleState(s)"
+              [id]="'state-' + s"
+            />
+            <label class="form-check-label" [for]="'state-' + s">
+              {{ s }}
+            </label>
+          </div>
+        </div>
+
+        <div class="col-md-3">
+          <label class="form-label">Početni datum</label>
+          <input
+            type="date"
+            class="form-control"
+            [(ngModel)]="startDate"
+            name="startDate"
+          />
+        </div>
+
+        <div class="col-md-3">
+          <label class="form-label">Krajnji datum</label>
+          <input
+            type="date"
+            class="form-control"
+            [(ngModel)]="endDate"
+            name="endDate"
+          />
+        </div>
+
+        <div class="col-12 d-flex justify-content-end">
+          <button type="button" class="btn btn-primary" (click)="search()">
+            Traži
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- tabela -->
+  <div *ngIf="machines.length > 0; else noMachines">
+    <table class="table table-striped table-bordered align-middle shadow-sm">
+      <thead class="table-light">
+        <tr>
+          <th>ID</th>
+          <th>Naziv</th>
+          <th>Tip</th>
+          <th>Stanje</th>
+          <th>Kreirao</th>
+          <th>Datum</th>
+          <th style="width: 120px;">Akcije</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let m of machines">
+          <td>{{ m.id }}</td>
+          <td>{{ m.name }}</td>
+          <td>{{ m.type }}</td>
+          <td>
+            <span
+              class="badge"
+              [ngClass]="{
+                'bg-success': m.state === 'UPALJENA',
+                'bg-secondary': m.state === 'UGASENA'
+              }"
+            >
+              {{ m.state }}
+            </span>
+          </td>
+          <td>{{ m.createdBy }}</td>
+          <td>{{ m.createdAt | date: 'dd.MM.yyyy' }}</td>
+          <td>
+            <button class="btn btn-sm btn-outline-danger" (click)="delete(m.id)">
+              Obriši
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <ng-template #noMachines>
+    <p class="text-center text-muted">Nema pronađenih mašina.</p>
+  </ng-template>
+</div>
+
