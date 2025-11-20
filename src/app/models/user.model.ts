@@ -1,8 +1,8 @@
 export interface User {
-  id: number;
+  id: string;
   firstName: string;
   lastName: string;
   email: string;
   password: string;
-  permissions: string[]; // npr. ['read_users', 'create_users', ...]
+  permissions: string[];
 }
