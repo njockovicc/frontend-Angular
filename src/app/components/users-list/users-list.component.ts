@@ -1,7 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { User } from '../../models/user.model';
-// import { UserService } from '../../../services/user.service';
+import { UserService } from '../../services/users.service';
 import { Router } from '@angular/router';
+import { first, switchMap } from 'rxjs/operators';
+import { AuthService } from '../../services/auth.service';
+import { forkJoin } from 'rxjs';
 
 @Component({
   selector: 'app-users-list',
@@ -9,43 +12,50 @@ import { Router } from '@angular/router';
 })
 export class UsersListComponent implements OnInit {
   users: User[] = [];
-  noPermission = false;
 
-  canCreate = true; //////// false;
-  canUpdate = true; //////// false;
-  canDelete = true; //////// false;
+  canCreate = false;
+  canUpdate = false;
+  canDelete = false;
 
   constructor(
-    // private userService: UserService,
-    private router: Router // private permission: PermissionService
+    private usersService: UserService,
+    private authService: AuthService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
-    // if (!this.permission.isLoggedIn()) {
-    //   this.router.navigate(['/login']);
-    //   return;
-    // }
+    this.usersService
+      .getUsers()
+      .pipe(first())
+      .subscribe((users) => {
+        this.users = users;
+      });
 
-    // // dozvole
-    // this.canCreate = this.permission.canCreateUsers();
-    // this.canUpdate = this.permission.canUpdateUsers();
-    // this.canDelete = this.permission.canDeleteUsers();
-
-    // if (!this.permission.canReadUsers()) {
-    //   this.noPermission = true;
-    //   return;
-    // }
-
-    this.users = []; //this.userService.getAll();
+    forkJoin({
+      canCreate: this.authService.hasPermission('create_user').pipe(first()),
+      canUpdate: this.authService.hasPermission('update_user').pipe(first()),
+      canDelete: this.authService.hasPermission('delete_user').pipe(first()),
+    }).subscribe((permissions) => {
+      this.canCreate = permissions.canCreate;
+      this.canUpdate = permissions.canUpdate;
+      this.canDelete = permissions.canDelete;
+    });
   }
 
   deleteUser(id: string) {
-    // if (!this.canDelete) {
-    //   alert('Nemaš dozvolu za brisanje korisnika!');
-    //   return;
-    // }
-    // this.userService.delete(id);
-    // this.users = this.userService.getAll();
+    if (!this.canDelete) {
+      alert('Nemaš dozvolu za brisanje korisnika!');
+      return;
+    }
+    this.usersService
+      .deleteUser(id)
+      .pipe(
+        first(),
+        switchMap(() => this.usersService.getUsers().pipe(first()))
+      )
+      .subscribe((users) => {
+        this.users = users;
+      });
   }
 
   goToEdit(user: User) {

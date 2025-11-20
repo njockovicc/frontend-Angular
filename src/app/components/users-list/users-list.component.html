@@ -1,11 +1,6 @@
 <div class="container mt-4">
-  <!-- poruka kad nema dozvolu -->
-  <div *ngIf="noPermission" class="alert alert-danger text-center">
-    Nemaš dozvolu da vidiš korisnike.
-  </div>
-
   <!-- kad ima dozvolu -->
-  <div *ngIf="!noPermission" class="card shadow-sm">
+  <div class="card shadow-sm">
     <div class="card-header d-flex justify-content-between align-items-center">
       <h5 class="mb-0">Korisnici</h5>
       <button
