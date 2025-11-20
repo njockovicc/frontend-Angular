@@ -26,7 +26,6 @@ export class AuthService {
     );
 
     if (user) {
-      console.log('LOGIN USER:', user); //////////////////////////////////////////////////////////////////////
       this._authUserSubject.next(user);
       localStorage.setItem(KEY_AUTH_USER, JSON.stringify(user));
       return of(user);
