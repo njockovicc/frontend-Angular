@@ -5,6 +5,7 @@ import { UsersListComponent } from './components/users-list/users-list.component
 import { AuthGuard } from './guards/auth.guard';
 import { PermissionGuard } from './guards/permission.guard';
 import { NoPermissionsComponent } from './components/no-permissions/no-permissions.component';
+import { UsersFormComponent } from './components/users-form/users-form.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -19,8 +20,18 @@ const routes: Routes = [
         canActivate: [PermissionGuard],
         data: { permissions: ['read_user'] },
       },
-      // { path: 'users/new', component: UserFormComponent, canActivate: [PermissionGuard], data: { permissions: ['create_user'] } },
-      // { path: 'users/:id', component: UserFormComponent, canActivate: [PermissionGuard], data: { permissions: ['update_user'] } },
+      {
+        path: 'users/new',
+        component: UsersFormComponent,
+        canActivate: [PermissionGuard],
+        data: { permissions: ['create_user'] },
+      },
+      {
+        path: 'users/:id',
+        component: UsersFormComponent,
+        canActivate: [PermissionGuard],
+        data: { permissions: ['update_user'] },
+      },
 
       // { path: 'machines', component: MachinesSearchComponent, canActivate: [PermissionGuard], data: { permissions: ['search_machine'] } },
       // { path: 'machines/new', component: MachineCreateComponent, canActivate: [PermissionGuard], data: { permissions: ['create_machine'] } },
