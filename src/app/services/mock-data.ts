@@ -6,11 +6,14 @@ export const MOCK_USERS = [
     email: 'admin@raf.rs',
     password: 'admin',
     permissions: [
+      'is_admin',
       'create_user',
       'read_user',
       'update_user',
       'delete_user',
       'search_machine',
+      'create_machine',
+      'destroy_machine',
     ],
   },
   {
@@ -28,5 +31,38 @@ export const MOCK_USERS = [
     email: 'zika@raf.rs',
     password: 'zika',
     permissions: ['read_user', 'search_machine'],
+  },
+];
+
+export const MOCK_MACHINES = [
+  {
+    id: '1',
+    name: 'Masina admina',
+    type: 'server',
+    description: 'serverska masina',
+    state: 'UGASENA',
+    createdBy: '1',
+    active: true,
+    createdAt: new Date('2025-11-01'),
+  },
+  {
+    id: '2',
+    name: 'Masina zike',
+    type: 'baza',
+    description: 'baza podataka',
+    state: 'UPALJENA',
+    createdBy: '3',
+    active: true,
+    createdAt: new Date('2025-11-05'),
+  },
+  {
+    id: '3',
+    name: 'Masina druga zike',
+    type: 'test',
+    description: 'test masina',
+    state: 'UGASENA',
+    createdBy: '3',
+    active: true,
+    createdAt: new Date('2025-11-07'),
   },
 ];

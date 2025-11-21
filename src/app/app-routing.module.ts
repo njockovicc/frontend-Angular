@@ -6,6 +6,8 @@ import { AuthGuard } from './guards/auth.guard';
 import { PermissionGuard } from './guards/permission.guard';
 import { NoPermissionsComponent } from './components/no-permissions/no-permissions.component';
 import { UsersFormComponent } from './components/users-form/users-form.component';
+import { MachinesSearchComponent } from './components/machines-search/machines-search.component';
+import { MachinesCreateComponent } from './components/machines-create/machines-create.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -33,8 +35,18 @@ const routes: Routes = [
         data: { permissions: ['update_user'] },
       },
 
-      // { path: 'machines', component: MachinesSearchComponent, canActivate: [PermissionGuard], data: { permissions: ['search_machine'] } },
-      // { path: 'machines/new', component: MachineCreateComponent, canActivate: [PermissionGuard], data: { permissions: ['create_machine'] } },
+      {
+        path: 'machines',
+        component: MachinesSearchComponent,
+        canActivate: [PermissionGuard],
+        data: { permissions: ['search_machine'] },
+      },
+      {
+        path: 'machines/new',
+        component: MachinesCreateComponent,
+        canActivate: [PermissionGuard],
+        data: { permissions: ['create_machine'] },
+      },
 
       // { path: 'errors', component: ErrorsHistoryComponent, canActivate: [PermissionGuard], data: { permissions: ['read_errors'] } },
       // kad je ulogovan, a ode na root → na korisnike

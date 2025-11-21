@@ -1,4 +1,5 @@
 export const authPermissions: string[] = [
+  'is_admin',
   'create_user',
   'read_user',
   'update_user',

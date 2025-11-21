@@ -2,21 +2,21 @@ export type MachineState = 'UPALJENA' | 'UGASENA';
 export type MachineOperation = 'UPALI' | 'UGASI' | 'RESTARTUJ';
 
 export interface Machine {
-  id: number;
+  id: string;
   name: string;
   type: string;
   description?: string;
   state: MachineState;
-  createdBy: number;
+  createdBy: string;
   active: boolean;
   createdAt: Date;
 }
 
 export interface MachineErrorLog {
-  id: number;
-  machineId: number;
+  id: string;
+  machineId: string;
   operation: MachineOperation;
   message: string;
   date: Date;
-  createdBy: number;
+  createdBy: string;
 }
