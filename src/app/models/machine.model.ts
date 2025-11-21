@@ -12,7 +12,7 @@ export interface Machine {
   createdAt: Date;
 }
 
-export interface MachineErrorLog {
+export interface MachinesErrorLog {
   id: string;
   machineId: string;
   operation: MachineOperation;

@@ -10,6 +10,7 @@ import { NoPermissionsComponent } from './components/no-permissions/no-permissio
 import { UsersFormComponent } from './components/users-form/users-form.component';
 import { MachinesSearchComponent } from './components/machines-search/machines-search.component';
 import { MachinesCreateComponent } from './components/machines-create/machines-create.component';
+import { MachinesErrorLogsListComponent } from './components/machines-error-logs-list/machines-error-logs-list.component';
 
 @NgModule({
   declarations: [
@@ -20,6 +21,7 @@ import { MachinesCreateComponent } from './components/machines-create/machines-c
     UsersFormComponent,
     MachinesSearchComponent,
     MachinesCreateComponent,
+    MachinesErrorLogsListComponent,
   ],
   imports: [BrowserModule, AppRoutingModule, FormsModule, ReactiveFormsModule],
   providers: [],

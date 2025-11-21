@@ -8,6 +8,7 @@ import { NoPermissionsComponent } from './components/no-permissions/no-permissio
 import { UsersFormComponent } from './components/users-form/users-form.component';
 import { MachinesSearchComponent } from './components/machines-search/machines-search.component';
 import { MachinesCreateComponent } from './components/machines-create/machines-create.component';
+import { MachinesErrorLogsListComponent } from './components/machines-error-logs-list/machines-error-logs-list.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -48,7 +49,12 @@ const routes: Routes = [
         data: { permissions: ['create_machine'] },
       },
 
-      // { path: 'errors', component: ErrorsHistoryComponent, canActivate: [PermissionGuard], data: { permissions: ['read_errors'] } },
+      {
+        path: 'errors',
+        component: MachinesErrorLogsListComponent,
+        canActivate: [PermissionGuard],
+        data: { permissions: ['read_errors'] },
+      },
       // kad je ulogovan, a ode na root → na korisnike
       { path: '', redirectTo: '/users', pathMatch: 'full' },
     ],

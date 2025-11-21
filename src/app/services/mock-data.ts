@@ -14,6 +14,7 @@ export const MOCK_USERS = [
       'search_machine',
       'create_machine',
       'destroy_machine',
+      'read_errors',
     ],
   },
   {
@@ -64,5 +65,32 @@ export const MOCK_MACHINES = [
     createdBy: '3',
     active: true,
     createdAt: new Date('2025-11-07'),
+  },
+];
+
+export const MACHINE_ERROR_LOGS = [
+  {
+    id: '1',
+    machineId: '1',
+    operation: 'UPALI',
+    message: 'Mašina nije bila u stanju UGASENA.',
+    date: new Date('2025-11-08T10:30:00'),
+    createdBy: '1',
+  },
+  {
+    id: '2',
+    machineId: '3',
+    operation: 'RESTARTUJ',
+    message: 'Mašina nije bila UPALJENA.',
+    date: new Date('2025-11-08T11:15:00'),
+    createdBy: '3',
+  },
+  {
+    id: '3',
+    machineId: '2',
+    operation: 'UGASI',
+    message: 'Mašina nije bila UPALJENA.',
+    date: new Date('2025-09-08T11:15:00'),
+    createdBy: '1',
   },
 ];
