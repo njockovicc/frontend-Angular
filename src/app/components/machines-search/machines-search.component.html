@@ -113,7 +113,8 @@
                 [disabled]="
                   m.state === 'UPALJENA' ||
                   m.state === 'UPALJENA...' ||
-                  m.state === 'UGASENA...'
+                  m.state === 'UGASENA...' ||
+                  !(canStartMachine$ | async)
                 "
                 (click)="start(m.id)"
               >
@@ -124,7 +125,8 @@
                 [disabled]="
                   m.state === 'UGASENA' ||
                   m.state === 'UPALJENA...' ||
-                  m.state === 'UGASENA...'
+                  m.state === 'UGASENA...' ||
+                  !(canStopMachine$ | async)
                 "
                 (click)="stop(m.id)"
               >
@@ -135,7 +137,8 @@
                 [disabled]="
                   m.state === 'UGASENA' ||
                   m.state === 'UPALJENA...' ||
-                  m.state === 'UGASENA...'
+                  m.state === 'UGASENA...' ||
+                  !(canRestartMachine$ | async)
                 "
                 (click)="restart(m.id)"
               >

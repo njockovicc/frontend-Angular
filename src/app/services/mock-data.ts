@@ -12,6 +12,9 @@ export const MOCK_USERS = [
       'update_user',
       'delete_user',
       'search_machine',
+      'start_machine',
+      'stop_machine',
+      'restart_machine',
       'create_machine',
       'destroy_machine',
       'read_errors',
@@ -32,7 +35,7 @@ export const MOCK_USERS = [
     lastName: 'Zikic',
     email: 'zika@raf.rs',
     password: 'zika',
-    permissions: ['read_user', 'search_machine'],
+    permissions: ['read_user', 'search_machine', 'start_machine'],
   },
 ];
 
@@ -79,7 +82,7 @@ export const MACHINE_ERROR_LOGS = [
     id: '1',
     machineId: '1',
     operation: 'UPALI',
-    message: 'Mašina nije bila u stanju UGASENA.',
+    message: 'Mašina nije bila UGASENA.',
     date: new Date('2025-11-08T10:30:00'),
     createdBy: '1',
   },

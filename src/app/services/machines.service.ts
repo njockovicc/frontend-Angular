@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Observable, of, map, switchMap, delay, tap } from 'rxjs';
+import { Observable, of, map, switchMap, delay, tap, take } from 'rxjs';
 import {
   Machine,
   MachineSchedule,
@@ -7,12 +7,19 @@ import {
 } from '../models/machine.model';
 import { User } from '../models/user.model';
 import { MOCK_MACHINES } from './mock-data';
+import { MachinesErrorLogsService } from './machines-error-logs.service';
+import { AuthService } from './auth.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class MachinesService {
   private machines: Machine[] = MOCK_MACHINES as Machine[];
+
+  constructor(
+    private errorLogsService: MachinesErrorLogsService,
+    private authService: AuthService
+  ) {}
 
   private getAllActive(): Observable<Machine[]> {
     return of(this.machines.filter((m) => m.active));
@@ -170,9 +177,50 @@ export class MachinesService {
     schedule: MachineSchedule
   ): Observable<void> {
     const machine = this.machines.find((m) => m.id === machineId);
-    if (machine) {
+    if (!machine) {
+      return of(undefined);
+    }
+
+    if (schedule.operation === 'UPALI' && machine.state === 'UPALJENA') {
+      this.authService.authUser$.pipe(take(1)).subscribe((user) => {
+        if (user) {
+          this.errorLogsService.addErrorLog(
+            machineId,
+            'UPALI',
+            'Masina nije bila UGASENA',
+            user.id
+          );
+        }
+      });
+    } else if (schedule.operation === 'UGASI' && machine.state === 'UGASENA') {
+      this.authService.authUser$.pipe(take(1)).subscribe((user) => {
+        if (user) {
+          this.errorLogsService.addErrorLog(
+            machineId,
+            'UGASI',
+            'Masina nije bila UPALJENA',
+            user.id
+          );
+        }
+      });
+    } else if (
+      schedule.operation === 'RESTARTUJ' &&
+      machine.state !== 'UPALJENA'
+    ) {
+      this.authService.authUser$.pipe(take(1)).subscribe((user) => {
+        if (user) {
+          this.errorLogsService.addErrorLog(
+            machineId,
+            'RESTARTUJ',
+            'Masina nije bila UPALJENA da bi se restartovala',
+            user.id
+          );
+        }
+      });
+    } else {
       machine.schedule = schedule;
     }
+
     return of(undefined);
   }
 }

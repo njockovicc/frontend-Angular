@@ -22,6 +22,9 @@ export class MachinesSearchComponent implements OnInit {
   canSearchMachines$!: Observable<boolean>;
   canCreateMachine$!: Observable<boolean>;
   canDestroyMachine$!: Observable<boolean>; // Added this
+  canStartMachine$!: Observable<boolean>;
+  canStopMachine$!: Observable<boolean>;
+  canRestartMachine$!: Observable<boolean>;
   canSchedule$!: Observable<boolean>;
   searchForm: FormGroup;
 
@@ -46,6 +49,9 @@ export class MachinesSearchComponent implements OnInit {
     this.canSearchMachines$ = this.authService.hasPermission('search_machine');
     this.canCreateMachine$ = this.authService.hasPermission('create_machine');
     this.canDestroyMachine$ = this.authService.hasPermission('destroy_machine'); // Initialized this
+    this.canStartMachine$ = this.authService.hasPermission('start_machine');
+    this.canStopMachine$ = this.authService.hasPermission('stop_machine');
+    this.canRestartMachine$ = this.authService.hasPermission('restart_machine');
     this.canSchedule$ = this.authService.hasPermission('read_schedules');
 
     const formChanges$ = this.searchForm.valueChanges.pipe(
