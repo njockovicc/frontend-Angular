@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Observable, of, map, switchMap } from 'rxjs';
+import { Observable, of, map, switchMap, delay, tap } from 'rxjs';
 import { Machine, MachineState } from '../models/machine.model';
 import { User } from '../models/user.model';
 import { MOCK_MACHINES } from './mock-data';
@@ -105,5 +105,59 @@ export class MachinesService {
       m.active = false;
     }
     return of(undefined);
+  }
+
+  startMachine(id: string): Observable<void> {
+    const machine = this.machines.find((m) => m.id === id);
+    if (machine) {
+      machine.state = 'UGASENA...';
+    }
+
+    return of(undefined).pipe(
+      delay(4000), // Simulate API call delay of 4 seconds
+      map(() => {
+        if (machine) {
+          machine.state = 'UPALJENA';
+        }
+      })
+    );
+  }
+
+  stopMachine(id: string): Observable<void> {
+    const machine = this.machines.find((m) => m.id === id);
+    if (machine) {
+      machine.state = 'UPALJENA...';
+    }
+
+    return of(undefined).pipe(
+      delay(4000), // Simulate API call delay of 4 seconds
+      map(() => {
+        if (machine) {
+          machine.state = 'UGASENA';
+        }
+      })
+    );
+  }
+
+  restartMachine(id: string): Observable<void> {
+    const machine = this.machines.find((m) => m.id === id);
+    if (machine) {
+      machine.state = 'UPALJENA...';
+    }
+
+    return of(undefined).pipe(
+      delay(2000),
+      tap(() => {
+        if (machine) {
+          machine.state = 'UGASENA...';
+        }
+      }),
+      delay(2000),
+      map(() => {
+        if (machine) {
+          machine.state = 'UPALJENA';
+        }
+      })
+    );
   }
 }

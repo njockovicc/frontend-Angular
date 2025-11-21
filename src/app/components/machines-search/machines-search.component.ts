@@ -80,6 +80,24 @@ export class MachinesSearchComponent implements OnInit {
     });
   }
 
+  start(id: string): void {
+    this.machineService.startMachine(id).subscribe(() => {
+      this.refreshTrigger.next();
+    });
+  }
+
+  stop(id: string): void {
+    this.machineService.stopMachine(id).subscribe(() => {
+      this.refreshTrigger.next();
+    });
+  }
+
+  restart(id: string): void {
+    this.machineService.restartMachine(id).subscribe(() => {
+      this.refreshTrigger.next();
+    });
+  }
+
   isStateSelected(state: MachineState): boolean {
     return (this.searchForm.get('states')?.value ?? []).includes(state);
   }

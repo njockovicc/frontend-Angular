@@ -1,4 +1,8 @@
-export type MachineState = 'UPALJENA' | 'UGASENA';
+export type MachineState =
+  | 'UPALJENA'
+  | 'UGASENA'
+  | 'UPALJENA...'
+  | 'UGASENA...';
 export type MachineOperation = 'UPALI' | 'UGASI' | 'RESTARTUJ';
 
 export interface Machine {

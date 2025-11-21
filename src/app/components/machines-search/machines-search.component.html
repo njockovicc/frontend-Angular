@@ -69,7 +69,7 @@
             <th>Stanje</th>
             <th>Kreirao</th>
             <th>Datum</th>
-            <th style="width: 120px">Akcije</th>
+            <th>Akcije</th>
           </tr>
         </thead>
         <tbody>
@@ -82,7 +82,9 @@
                 class="badge"
                 [ngClass]="{
                   'bg-success': m.state === 'UPALJENA',
-                  'bg-secondary': m.state === 'UGASENA'
+                  'bg-danger': m.state === 'UGASENA',
+                  'bg-secondary':
+                    m.state === 'UPALJENA...' || m.state === 'UGASENA...'
                 }"
               >
                 {{ m.state }}
@@ -92,11 +94,49 @@
             <td>{{ m.createdAt | date : "dd.MM.yyyy" }}</td>
             <td>
               <button
+                class="btn btn-sm btn-outline-primary me-3"
+                [disabled]="
+                  m.state === 'UPALJENA' ||
+                  m.state === 'UPALJENA...' ||
+                  m.state === 'UGASENA...'
+                "
+                (click)="start(m.id)"
+              >
+                UPALI
+              </button>
+              <button
+                class="btn btn-sm btn-outline-warning me-3"
+                [disabled]="
+                  m.state === 'UGASENA' ||
+                  m.state === 'UPALJENA...' ||
+                  m.state === 'UGASENA...'
+                "
+                (click)="stop(m.id)"
+              >
+                UGASI
+              </button>
+              <button
+                class="btn btn-sm btn-outline-info me-3"
+                [disabled]="
+                  m.state === 'UGASENA' ||
+                  m.state === 'UPALJENA...' ||
+                  m.state === 'UGASENA...'
+                "
+                (click)="restart(m.id)"
+              >
+                RESTARTUJ
+              </button>
+              <button
                 class="btn btn-sm btn-outline-danger"
-                [disabled]="!(canDestroyMachine$ | async)"
+                style="margin-left: 50px"
+                [disabled]="
+                  m.state === 'UPALJENA...' ||
+                  m.state === 'UGASENA...' ||
+                  !(canDestroyMachine$ | async)
+                "
                 (click)="delete(m.id)"
               >
-                Obriši
+                UNISTI
               </button>
             </td>
           </tr>
