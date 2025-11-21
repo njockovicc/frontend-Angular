@@ -1,8 +1,8 @@
-<!-- <nav *ngIf="permission.isLoggedIn()" class="top-nav">
-  <a *ngIf="permission.canReadUsers()" routerLink="/users">Korisnici</a>
-  <a *ngIf="permission.canSearchMachines()" routerLink="/machines">Mašine</a>
-  <a *ngIf="permission.canViewErrors()" routerLink="/errors">Greške</a>
+<nav *ngIf="isLoggedIn$ | async" class="top-nav">
+  <a *ngIf="canReadUsers$ | async" routerLink="/users">Korisnici</a>
+  <a *ngIf="canSearchMachines$ | async" routerLink="/machines">Mašine</a>
+  <a routerLink="/errors">Greške</a>
   <button (click)="logout()">Logout</button>
-</nav> -->
+</nav>
 
 <router-outlet></router-outlet>
