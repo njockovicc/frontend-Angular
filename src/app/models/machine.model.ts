@@ -5,6 +5,12 @@ export type MachineState =
   | 'UGASENA...';
 export type MachineOperation = 'UPALI' | 'UGASI' | 'RESTARTUJ';
 
+export interface MachineSchedule {
+  date: string;
+  time: string;
+  operation: MachineOperation;
+}
+
 export interface Machine {
   id: string;
   name: string;
@@ -14,6 +20,7 @@ export interface Machine {
   createdBy: string;
   active: boolean;
   createdAt: Date;
+  schedule?: MachineSchedule;
 }
 
 export interface MachinesErrorLog {

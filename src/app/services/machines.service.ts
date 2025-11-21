@@ -1,6 +1,10 @@
 import { Injectable } from '@angular/core';
 import { Observable, of, map, switchMap, delay, tap } from 'rxjs';
-import { Machine, MachineState } from '../models/machine.model';
+import {
+  Machine,
+  MachineSchedule,
+  MachineState,
+} from '../models/machine.model';
 import { User } from '../models/user.model';
 import { MOCK_MACHINES } from './mock-data';
 
@@ -159,5 +163,16 @@ export class MachinesService {
         }
       })
     );
+  }
+
+  scheduleMachine(
+    machineId: string,
+    schedule: MachineSchedule
+  ): Observable<void> {
+    const machine = this.machines.find((m) => m.id === machineId);
+    if (machine) {
+      machine.schedule = schedule;
+    }
+    return of(undefined);
   }
 }

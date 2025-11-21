@@ -9,6 +9,7 @@ import { UsersFormComponent } from './components/users-form/users-form.component
 import { MachinesSearchComponent } from './components/machines-search/machines-search.component';
 import { MachinesCreateComponent } from './components/machines-create/machines-create.component';
 import { MachinesErrorLogsListComponent } from './components/machines-error-logs-list/machines-error-logs-list.component';
+import { MachinesScheduleComponent } from './components/machines-schedule/machines-schedule.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -48,6 +49,13 @@ const routes: Routes = [
         canActivate: [PermissionGuard],
         data: { permissions: ['create_machine'] },
       },
+      {
+        path: 'machines/schedule/:id',
+        component: MachinesScheduleComponent,
+        canActivate: [PermissionGuard],
+        data: { permissions: ['read_schedules'] },
+      },
+
 
       {
         path: 'errors',

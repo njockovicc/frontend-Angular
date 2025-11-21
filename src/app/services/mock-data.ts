@@ -15,6 +15,7 @@ export const MOCK_USERS = [
       'create_machine',
       'destroy_machine',
       'read_errors',
+      'read_schedules',
     ],
   },
   {
@@ -45,6 +46,11 @@ export const MOCK_MACHINES = [
     createdBy: '1',
     active: true,
     createdAt: new Date('2025-11-01'),
+    schedule: {
+      date: '2025-12-01',
+      time: '10:00',
+      operation: 'UPALI',
+    },
   },
   {
     id: '2',

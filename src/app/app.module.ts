@@ -11,6 +11,7 @@ import { UsersFormComponent } from './components/users-form/users-form.component
 import { MachinesSearchComponent } from './components/machines-search/machines-search.component';
 import { MachinesCreateComponent } from './components/machines-create/machines-create.component';
 import { MachinesErrorLogsListComponent } from './components/machines-error-logs-list/machines-error-logs-list.component';
+import { MachinesScheduleComponent } from './components/machines-schedule/machines-schedule.component';
 
 @NgModule({
   declarations: [
@@ -22,6 +23,7 @@ import { MachinesErrorLogsListComponent } from './components/machines-error-logs
     MachinesSearchComponent,
     MachinesCreateComponent,
     MachinesErrorLogsListComponent,
+    MachinesScheduleComponent,
   ],
   imports: [BrowserModule, AppRoutingModule, FormsModule, ReactiveFormsModule],
   providers: [],

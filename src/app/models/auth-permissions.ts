@@ -10,4 +10,5 @@ export const authPermissions: string[] = [
   'restart_machine',
   'create_machine',
   'destroy_machine',
+  'read_schedules',
 ];

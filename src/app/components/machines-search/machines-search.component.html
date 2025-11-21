@@ -69,6 +69,7 @@
             <th>Stanje</th>
             <th>Kreirao</th>
             <th>Datum</th>
+            <th class="text-center">Zakazivanje</th>
             <th>Akcije</th>
           </tr>
         </thead>
@@ -92,6 +93,20 @@
             </td>
             <td>{{ m.createdBy }}</td>
             <td>{{ m.createdAt | date : "dd.MM.yyyy" }}</td>
+            <td class="text-center">
+              <a
+                *ngIf="!m.schedule"
+                [routerLink]="['/machines/schedule', m.id]"
+                class="btn btn-sm btn-primary"
+                [class.disabled]="!(canSchedule$ | async)"
+              >
+                + Zakazi
+              </a>
+              <div *ngIf="m.schedule">
+                <div>{{ m.schedule.date }} {{ m.schedule.time }}</div>
+                <div>{{ m.schedule.operation }}</div>
+              </div>
+            </td>
             <td>
               <button
                 class="btn btn-sm btn-outline-primary me-3"

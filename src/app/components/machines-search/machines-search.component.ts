@@ -22,6 +22,7 @@ export class MachinesSearchComponent implements OnInit {
   canSearchMachines$!: Observable<boolean>;
   canCreateMachine$!: Observable<boolean>;
   canDestroyMachine$!: Observable<boolean>; // Added this
+  canSchedule$!: Observable<boolean>;
   searchForm: FormGroup;
 
   allStates: MachineState[] = ['UPALJENA', 'UGASENA'];
@@ -45,6 +46,7 @@ export class MachinesSearchComponent implements OnInit {
     this.canSearchMachines$ = this.authService.hasPermission('search_machine');
     this.canCreateMachine$ = this.authService.hasPermission('create_machine');
     this.canDestroyMachine$ = this.authService.hasPermission('destroy_machine'); // Initialized this
+    this.canSchedule$ = this.authService.hasPermission('read_schedules');
 
     const formChanges$ = this.searchForm.valueChanges.pipe(
       startWith(this.searchForm.value)
