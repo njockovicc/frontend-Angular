@@ -11,4 +11,5 @@ export const authPermissions: string[] = [
   'create_machine',
   'destroy_machine',
   'read_schedules',
+  'read_errors',
 ];

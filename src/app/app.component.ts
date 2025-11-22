@@ -13,11 +13,13 @@ export class AppComponent {
   isLoggedIn$: Observable<boolean>;
   canReadUsers$: Observable<boolean>;
   canSearchMachines$: Observable<boolean>;
+  canReadErrors$: Observable<boolean>;
 
   constructor(private authService: AuthService, private router: Router) {
     this.isLoggedIn$ = this.authService.authUser$.pipe(map((user) => !!user));
     this.canReadUsers$ = this.authService.hasPermission('read_user');
     this.canSearchMachines$ = this.authService.hasPermission('search_machine');
+    this.canReadErrors$ = this.authService.hasPermission('read_errors');
   }
 
   logout(): void {

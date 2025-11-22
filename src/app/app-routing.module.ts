@@ -63,11 +63,9 @@ const routes: Routes = [
         canActivate: [PermissionGuard],
         data: { permissions: ['read_errors'] },
       },
-      // kad je ulogovan, a ode na root → na korisnike
       { path: '', redirectTo: '/users', pathMatch: 'full' },
     ],
   },
-  // ako lupi glup URL
   { path: '**', redirectTo: '/login' },
 ];
 
