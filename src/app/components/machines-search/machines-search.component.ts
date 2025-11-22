@@ -21,7 +21,7 @@ export class MachinesSearchComponent implements OnInit {
   machines$!: Observable<Machine[]>;
   canSearchMachines$!: Observable<boolean>;
   canCreateMachine$!: Observable<boolean>;
-  canDestroyMachine$!: Observable<boolean>; // Added this
+  canDestroyMachine$!: Observable<boolean>;
   canStartMachine$!: Observable<boolean>;
   canStopMachine$!: Observable<boolean>;
   canRestartMachine$!: Observable<boolean>;
@@ -48,7 +48,7 @@ export class MachinesSearchComponent implements OnInit {
   ngOnInit(): void {
     this.canSearchMachines$ = this.authService.hasPermission('search_machine');
     this.canCreateMachine$ = this.authService.hasPermission('create_machine');
-    this.canDestroyMachine$ = this.authService.hasPermission('destroy_machine'); // Initialized this
+    this.canDestroyMachine$ = this.authService.hasPermission('destroy_machine'); 
     this.canStartMachine$ = this.authService.hasPermission('start_machine');
     this.canStopMachine$ = this.authService.hasPermission('stop_machine');
     this.canRestartMachine$ = this.authService.hasPermission('restart_machine');

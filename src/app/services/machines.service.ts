@@ -125,7 +125,7 @@ export class MachinesService {
     }
 
     return of(undefined).pipe(
-      delay(4000), // Simulate API call delay of 4 seconds
+      delay(4000),
       map(() => {
         if (machine) {
           machine.state = 'UPALJENA';
@@ -141,7 +141,7 @@ export class MachinesService {
     }
 
     return of(undefined).pipe(
-      delay(4000), // Simulate API call delay of 4 seconds
+      delay(4000), 
       map(() => {
         if (machine) {
           machine.state = 'UGASENA';
